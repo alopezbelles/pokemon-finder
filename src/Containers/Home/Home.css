@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
 .header {
-    
-    font-family: 'VT323', monospace;
-    font-size: 25px;
-  }
-  
+  font-family: "VT323", monospace;
+  font-size: 25px;
+}
+
 .homePageDesign {
   display: flex;
   flex-wrap: wrap;
@@ -16,7 +15,6 @@
   background-color: rgb(251, 242, 144);
 }
 
-
 .pokemonCard {
   width: 150px;
   height: 200px;
@@ -25,7 +23,7 @@
   margin-top: 1em;
   background-color: rgb(236, 236, 236);
   box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.7);
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
 }
 
 .pokemonCard:hover {
@@ -36,13 +34,22 @@
 }
 
 .pokemonCard:hover img {
-    scale: 1.2;
-    transition: 0.5s;
-  }
+  scale: 1.2;
+  transition: 0.5s;
+}
 
 .imputDesign {
   border-radius: 50px;
   width: 25%;
   height: 2em;
   margin-bottom: 2em;
+}
+
+@media screen and (max-width: 800px) {
+  .imputDesign {
+    width: 40%;
+  }
+  .header {
+    font-size: 20px;
+  }
 }

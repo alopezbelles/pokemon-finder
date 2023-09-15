@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Container, Row } from "react-bootstrap";
 
 import "./Home.css";
 
@@ -7,7 +8,7 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=100&offset=0")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=300&offset=0")
       .then((response) => response.json())
       .then((data) => {
         const orderedList = data.results.sort(function (a, b) {
@@ -17,7 +18,6 @@ function Home() {
           if (a.name < b.name) {
             return -1;
           }
-          // a must be equal to b
           return 0;
         });
         console.log(data);
@@ -25,10 +25,12 @@ function Home() {
       });
   }, []);
 
+  //Function to get values from imput
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  //Function to get url image
   const getImageUrl = (pokemonId) =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 
@@ -37,8 +39,8 @@ function Home() {
   );
 
   return (
-    <div>
-      <div className="header">
+    <Container>
+      <Row className="header">
         <h1>¡ POKEMON FINDER !</h1>
         <input
           type="text"
@@ -47,8 +49,8 @@ function Home() {
           onChange={handleChange}
           placeholder="Find your Pokemon..."
         />
-      </div>
-      <div className="homePageDesign">
+      </Row>
+      <Row className="homePageDesign">
         {filteredPokemons.map((value) => (
           <div className="pokemonCard" key={value.name}>
             <h3>{value.name}</h3>
@@ -58,8 +60,8 @@ function Home() {
             />
           </div>
         ))}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 }
 
