@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.header {
+    
+    font-family: 'VT323', monospace;
+    font-size: 25px;
+  }
+  
+.homePageDesign {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  background-color: rgb(251, 242, 144);
+}
+
+
+.pokemonCard {
+  width: 150px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 1em;
+  background-color: rgb(236, 236, 236);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.7);
+  font-family: 'VT323', monospace;
+}
+
+.pokemonCard:hover {
+  scale: 1.1;
+  transition: 0.5s;
+}
+
+.imputDesign {
+  border-radius: 50px;
+  width: 25%;
+  height: 2em;
+  margin-bottom: 2em;
+}
