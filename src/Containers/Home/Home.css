@@ -31,7 +31,14 @@
 .pokemonCard:hover {
   scale: 1.1;
   transition: 0.5s;
+  box-shadow: none;
+  background-color: rgb(251, 242, 144);
 }
+
+.pokemonCard:hover img {
+    scale: 1.2;
+    transition: 0.5s;
+  }
 
 .imputDesign {
   border-radius: 50px;
