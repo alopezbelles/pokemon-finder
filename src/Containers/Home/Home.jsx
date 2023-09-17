@@ -38,6 +38,26 @@ function Home() {
     pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
   );
 
+  function getExperience(name){
+    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    .then((res)=>{
+      if(!res.ok){
+        throw new Error("Error");
+      }
+      return res.json();
+    })
+    .then((data)=>{
+      console.log(data);
+      let experience = data.base_experience;
+      console.log(experience);
+      // return(experience);
+    })
+
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
   return (
     <Container>
       <Row className="header">
@@ -52,16 +72,18 @@ function Home() {
       </Row>
       <Row className="homePageDesign">
         {filteredPokemons.map((value) => {
-          const pokemonId = value.url ? value.url.split("/").reverse()[1] : null;
-          const imageUrl = pokemonId ? getImageUrl(pokemonId) : '';
+          
           return (
             <div className="pokemonCard" key={value.name}>
-              <h3>{value.name.charAt(0).toUpperCase() + value.name.slice(1)}</h3>
+              <h3>
+                {value.name.charAt(0).toUpperCase() + value.name.slice(1)}
+              </h3>
               <img
-                src={imageUrl}
+                src={getImageUrl(value.url.split("/").reverse()[1])}
                 alt={`Imagen de ${value.name}`}
               />
-              <h5>{value.base_experience}</h5>
+              <h5>Exp:{value.base_experience}</h5>
+              {/* <h5>Exp:{base}</h5> */}
             </div>
           );
         })}
@@ -71,4 +93,3 @@ function Home() {
 }
 
 export default Home;
-
