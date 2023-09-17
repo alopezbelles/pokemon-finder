@@ -25,12 +25,12 @@ function Home() {
       });
   }, []);
 
-  //Function to get values from imput
+  // Function to get values from input
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  //Function to get url image
+  // Function to get url image
   const getImageUrl = (pokemonId) =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 
@@ -44,25 +44,31 @@ function Home() {
         <h1>¡ POKEMON FINDER !</h1>
         <input
           type="text"
-          className="imputDesign"
+          className="inputDesign"
           value={searchTerm}
           onChange={handleChange}
           placeholder="Find your Pokemon..."
         />
       </Row>
       <Row className="homePageDesign">
-        {filteredPokemons.map((value) => (
-          <div className="pokemonCard" key={value.name}>
-            <h3>{value.name}</h3>
-            <img
-              src={getImageUrl(value.url.split("/").reverse()[1])}
-              alt={`Imagen de ${value.name}`}
-            />
-          </div>
-        ))}
+        {filteredPokemons.map((value) => {
+          const pokemonId = value.url ? value.url.split("/").reverse()[1] : null;
+          const imageUrl = pokemonId ? getImageUrl(pokemonId) : '';
+          return (
+            <div className="pokemonCard" key={value.name}>
+              <h3>{value.name.charAt(0).toUpperCase() + value.name.slice(1)}</h3>
+              <img
+                src={imageUrl}
+                alt={`Imagen de ${value.name}`}
+              />
+              <h5>{value.base_experience}</h5>
+            </div>
+          );
+        })}
       </Row>
     </Container>
   );
 }
 
 export default Home;
+
