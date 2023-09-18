@@ -35,20 +35,19 @@ function Home() {
   const getImageUrl = (pokemonId) =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 
-  const filteredPokemons = pokemons.filter((pokemon) =>
-    pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-  );
+  // const filteredPokemons = pokemons.filter((pokemon) =>
+  //   pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+  // );
 
   //Function1 to get base_experience.
 
-  function getBaseExperienceUrl(name) {
-    return `https://pokeapi.co/api/v2/pokemon/${name}`;
-  }
+  // function getBaseExperienceUrl(name) {
+  //   return `https://pokeapi.co/api/v2/pokemon/${name}`;
+  // }
 
   //Function2 to get base_experience.
   function getExperience(name) {
-    let baseExperience = null;
-    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    return fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Error");
@@ -57,24 +56,23 @@ function Home() {
       })
       .then((data) => {
         // console.log(data);
-        return data.base_experience;
+        return data.base_experience;  
       })
       .catch((err) => {
         console.log(err);
-        return null
+        return null;
       });
   }
 
-  useEffect(() =>{
+  useEffect(() => {
     const experiences = {};
-    pokemons.forEach(pokemon => {
+    pokemons.forEach((pokemon) => {
       getExperience(pokemon.name).then((experience) => {
         experiences[pokemon.name] = experience;
-        setPokemonExperiences({...experiences})
+        setPokemonExperiences({ ...experiences });
       });
     });
-
-  }, [pokemons])
+  }, [pokemons]);
 
   return (
     <Container>
@@ -89,24 +87,24 @@ function Home() {
         />
       </Row>
       <Row className="homePageDesign">
-        {filteredPokemons.map((value) => {
-          const pokemonName = value.name;
-          const experience = getExperience(pokemonName);
-
-          return (
-            <div className="pokemonCard" key={value.name}>
-              <h3>
-                {value.name.charAt(0).toUpperCase() + value.name.slice(1)}
-              </h3>
-              <img
-                src={getImageUrl(value.url.split("/").reverse()[1])}
-                alt={`Imagen de ${value.name}`}
-              />
-              <h5>Exp:{experience}</h5>
-              <h5>{getExperience(value.name)}</h5>
-            </div>
-          );
-        })}
+        {pokemons
+          .filter((pokemon) =>
+            pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+          )
+          .map((value) => {
+            const pokemonId = value.url.split("/").reverse()[1];
+            const imageUrl = getImageUrl(pokemonId);
+            const experience = pokemonExperiences[value.name];
+            return (
+              <div className="pokemonCard" key={value.name}>
+                <h3>
+                  {value.name.charAt(0).toUpperCase() + value.name.slice(1)}
+                </h3>
+                <img src={imageUrl} alt={`Imagen de ${value.name}`} />
+                <h5>Exp:{experience}</h5>
+              </div>
+            );
+          })}
       </Row>
     </Container>
   );
