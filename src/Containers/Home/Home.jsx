@@ -6,6 +6,7 @@ import "./Home.css";
 function Home() {
   const [pokemons, setPokemons] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [pokemonExperiences, setPokemonExperiences] = useState({});
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon?limit=300&offset=0")
@@ -60,8 +61,20 @@ function Home() {
       })
       .catch((err) => {
         console.log(err);
+        return null
       });
   }
+
+  useEffect(() =>{
+    const experiences = {};
+    pokemons.forEach(pokemon => {
+      getExperience(pokemon.name).then((experience) => {
+        experiences[pokemon.name] = experience;
+        setPokemonExperiences({...experiences})
+      });
+    });
+
+  }, [pokemons])
 
   return (
     <Container>
