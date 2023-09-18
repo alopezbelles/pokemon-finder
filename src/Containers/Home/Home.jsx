@@ -8,7 +8,7 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=30&offset=0")
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=300&offset=0")
       .then((response) => response.json())
       .then((data) => {
         const orderedList = data.results.sort(function (a, b) {
@@ -20,7 +20,7 @@ function Home() {
           }
           return 0;
         });
-        console.log(data);
+        // console.log(data);
         setPokemons(orderedList);
       });
   }, []);
@@ -38,8 +38,13 @@ function Home() {
     pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
   );
 
+  //Function1 to get base_experience.
 
+  function getBaseExperienceUrl(name) {
+    return `https://pokeapi.co/api/v2/pokemon/${name}`;
+  }
 
+  //Function2 to get base_experience.
   function getExperience(name) {
     let baseExperience = null;
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -51,13 +56,11 @@ function Home() {
       })
       .then((data) => {
         // console.log(data);
-        baseExperience = data.base_experience;
-        console.log(baseExperience)        
+        return data.base_experience;
       })
       .catch((err) => {
         console.log(err);
       });
-      return baseExperience;
   }
 
   return (
@@ -75,8 +78,8 @@ function Home() {
       <Row className="homePageDesign">
         {filteredPokemons.map((value) => {
           const pokemonName = value.name;
-          const experience = getExperience(pokemonName)
-          
+          const experience = getExperience(pokemonName);
+
           return (
             <div className="pokemonCard" key={value.name}>
               <h3>
@@ -87,7 +90,7 @@ function Home() {
                 alt={`Imagen de ${value.name}`}
               />
               <h5>Exp:{experience}</h5>
-              {/* <h5>Exp:{base}</h5> */}
+              <h5>{getExperience(value.name)}</h5>
             </div>
           );
         })}
