@@ -35,15 +35,7 @@ function Home() {
   const getImageUrl = (pokemonId) =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 
-  // const filteredPokemons = pokemons.filter((pokemon) =>
-  //   pokemon.name.toLowerCase().startsWith(searchTerm.toLowerCase())
-  // );
 
-  //Function1 to get base_experience.
-
-  // function getBaseExperienceUrl(name) {
-  //   return `https://pokeapi.co/api/v2/pokemon/${name}`;
-  // }
 
   //Function2 to get base_experience.
   function getExperience(name) {
