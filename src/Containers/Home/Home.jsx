@@ -35,6 +35,8 @@ function Home() {
   const getImageUrl = (pokemonId) =>
     `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 
+ 
+
   //Function2 to get base_experience.
   function getExperience(name) {
     return fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
